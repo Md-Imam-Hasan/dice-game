@@ -1,5 +1,5 @@
 'use strict';
-var scores, activePlayer, currentScore, gamePlay, diceDOM;
+var scores, activePlayer, currentScore, gamePlay, diceDOM, gameScore = 100, prevDice;
 
 // Initial state
 function init() {
@@ -41,13 +41,20 @@ document.querySelector('.btn--new').addEventListener('click', init);
 document.querySelector('.btn--roll').addEventListener('click', function () {
   if (gamePlay) {
     var dice = Math.floor(Math.random() * 6) + 1;
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-' + dice + '.png';
-    if (dice != 1) {
-      currentScore += dice;
-      document.querySelector('#current--' + activePlayer).textContent = currentScore;
-    } else {
+    if ((prevDice) && (prevDice == 6 && dice == 6)) {
+      scores[activePlayer] = 0;
+      document.querySelector('#score--' + activePlayer).textContent = scores[activePlayer];
       newPlayer();
+    } else {
+      prevDice = dice;
+      diceDOM.style.display = 'block';
+      diceDOM.src = 'dice-' + dice + '.png';
+      if (dice != 1) {
+        currentScore += dice;
+        document.querySelector('#current--' + activePlayer).textContent = currentScore;
+      } else {
+        newPlayer();
+      }
     }
   }
 });
@@ -56,7 +63,7 @@ document.querySelector('.btn--hold').addEventListener('click', function () {
   if (gamePlay) {
     scores[activePlayer] += currentScore;
     document.querySelector('#score--' + activePlayer).textContent = scores[activePlayer];
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= gameScore) {
       document.querySelector('.player--' + activePlayer).classList.add('player--winner');
       document.getElementById('name--' + activePlayer).textContent = 'Winner';
       gamePlay = false;
