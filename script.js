@@ -26,6 +26,7 @@ function init() {
 function newPlayer() {
   diceDOM.style.display = 'none';
   currentScore = 0;
+  prevDice = 0;
   document.querySelector('#current--' + activePlayer).textContent = currentScore;
   document.querySelector('.player--0').classList.toggle('player--active');
   document.querySelector('.player--1').classList.toggle('player--active');
