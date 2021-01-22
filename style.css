@@ -165,3 +165,23 @@ main {
   font-weight: 700;
   color: #c7365f;
 }
+
+.final--score{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  top: 530px;
+  color: #555;
+  font-size: 18px;
+  font-family: 'Lato';
+  text-align: center;
+  padding: 10px;
+  width: 160px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 30px;
+}
+
+.final--score:focus{
+  outline: none;
+}
